@@ -1,18 +1,16 @@
 # Paradise Nursery
 
-A React-based houseplant shopping application built with Vite, Redux Toolkit, and React Router.
+**Project Name: Paradise Nursery Shopping Application**
 
-## Project Overview
+Paradise Nursery is a front-end React shopping application for an online houseplant store. Users can browse a curated collection of houseplants, add them to a shopping cart, and manage their order before checkout.
 
-Paradise Nursery is a front-end shopping application that lets users browse a curated collection of houseplants, add them to a cart, and manage their order before checkout.
+## Project Features
 
-## Features
-
-- **Landing Page** — Background image, company name, about us section, and a "Get Started" button
-- **Product Listing Page** — 18 unique houseplants across 3 categories (Air Purifying, Low Maintenance, Aromatic), each with thumbnail, name, price, and Add to Cart button
-- **Shopping Cart Page** — Full cart management with quantity controls, item removal, running totals, continue shopping, and checkout
-- **Navbar** — Sticky navigation with live cart item count badge on both product and cart pages
-- **Redux State Management** — Cart state managed via Redux Toolkit slice
+- **Landing Page** — Full background image, company name "Paradise Nursery", about us paragraph, and a "Get Started" button linking to the product listing page
+- **Product Listing Page** — 18 unique houseplants across 3 categories (Air Purifying, Low Maintenance, Fragrant), each with thumbnail, name, and price. Add to Cart button disables after adding and updates the cart icon count.
+- **Shopping Cart Page** — Displays all cart items with thumbnail, name, unit price, and subtotal. Includes increase/decrease quantity buttons, delete button, total cost, continue shopping button, and checkout button.
+- **Navbar** — Appears on both Product Listing and Cart pages with navigation links to Home, Plants, and Cart. Displays a live cart item count badge.
+- **Redux State Management** — Cart state managed via Redux Toolkit (CartSlice) with addItem, removeItem, and updateQuantity reducers.
 
 ## Tech Stack
 
@@ -22,6 +20,22 @@ Paradise Nursery is a front-end shopping application that lets users browse a cu
 - React Router DOM v6
 - Lucide React (icons)
 
+## Project Structure
+
+```
+src/
+├── App.jsx                    # Landing page + routing
+├── App.css                    # All styles including background image
+├── components/
+│   ├── AboutUs.jsx            # Company description
+│   ├── Navbar.jsx             # Navigation with cart badge
+│   ├── ProductList.jsx        # Product listing page
+│   └── CartItem.jsx           # Shopping cart page
+└── store/
+    ├── CartSlice.jsx          # Redux slice
+    └── store.js               # Redux store
+```
+
 ## Getting Started
 
 ```bash
@@ -29,12 +43,6 @@ npm install
 npm run dev
 ```
 
-## Build
-
-```bash
-npm run build
-```
-
 ## Deployment
 
-Deployed via GitHub Pages.
+Deployed via GitHub Pages at: https://tirthvaghela.github.io/Paradise_Nursery/

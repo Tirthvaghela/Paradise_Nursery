@@ -120,7 +120,7 @@ function CartItem() {
                 </div>
               </div>
               <button onClick={() => setShowModal(true)} className="checkout-btn">
-                Complete Order
+                Checkout
               </button>
               <Link to="/products" className="continue-btn">
                 <ChevronLeft size={14} />
