@@ -2,7 +2,8 @@ import React from 'react';
 
 function AboutUs() {
   return (
-    <section className="about-us">
+    <div className="about-us-container">
+      <h2>About Paradise Nursery</h2>
       <p>
         Welcome to <strong>Paradise Nursery</strong> — your ultimate destination for beautiful,
         healthy houseplants. Founded in 2023 with a passion for greenery, we believe every home
@@ -16,7 +17,7 @@ function AboutUs() {
         your green journey, Paradise Nursery is here to help you find the right plant and give
         it the care it deserves. Make your space a sanctuary today.
       </p>
-    </section>
+    </div>
   );
 }
 

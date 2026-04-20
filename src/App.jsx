@@ -1,5 +1,5 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './store/store';
 import Navbar from './components/Navbar';
@@ -9,6 +9,14 @@ import AboutUs from './components/AboutUs';
 import './App.css';
 
 function LandingPage() {
+  const [showProductList, setShowProductList] = useState(false);
+  const navigate = useNavigate();
+
+  const handleGetStarted = () => {
+    setShowProductList(true);
+    navigate('/products');
+  };
+
   return (
     <div className="landing">
       {/* Left panel — cream */}
@@ -22,23 +30,25 @@ function LandingPage() {
             Live <em>Botanically.</em>
           </h2>
           <AboutUs />
-          <Link to="/products" className="landing-cta">
+          <button
+            className="landing-cta"
+            onClick={handleGetStarted}
+          >
             <span>Get Started</span>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
-          </Link>
+          </button>
         </div>
       </div>
 
       {/* Right panel — botanical photo */}
-      <div className="landing-right">
+      <div className="landing-right background-image">
         <img
           src="https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?auto=format&fit=crop&q=80&w=1600"
           alt="Botanical seedlings"
           className="landing-photo"
         />
-        {/* Fade edge blending left panel into photo */}
         <div className="landing-fade" />
       </div>
     </div>
@@ -46,7 +56,7 @@ function LandingPage() {
 }
 
 function App() {
-  const basename = import.meta.env.BASE_URL; // /Paradise_Nursery/ in prod, / in dev
+  const basename = import.meta.env.BASE_URL;
 
   return (
     <Provider store={store}>

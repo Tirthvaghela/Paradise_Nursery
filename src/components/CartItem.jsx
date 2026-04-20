@@ -1,15 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { removeItem, updateQuantity } from '../store/CartSlice';
 import { Link } from 'react-router-dom';
-import { Trash2, Plus, Minus, Leaf, ChevronLeft, X, Info } from 'lucide-react';
+import { Trash2, Plus, Minus, Leaf, ChevronLeft } from 'lucide-react';
 
 const FALLBACK = 'https://images.unsplash.com/photo-1545241047-6083a3684587?auto=format&fit=crop&q=80&w=800';
 
 function CartItem() {
   const dispatch = useDispatch();
   const cartItems = useSelector(state => state.cart.items);
-  const [showModal, setShowModal] = useState(false);
 
   const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
   const totalCost = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
@@ -20,6 +19,10 @@ function CartItem() {
     else dispatch(removeItem(id));
   };
 
+  const handleCheckout = () => {
+    alert('Coming Soon! Thank you for shopping at Paradise Nursery.');
+  };
+
   return (
     <div className="cart-page">
       <div className="cart-container">
@@ -27,22 +30,30 @@ function CartItem() {
         {/* Page header */}
         <div className="cart-page-header">
           <div>
-            <h2 className="cart-page-title">Your Greenhouse</h2>
-            <p className="cart-page-subtitle">The items you have selected for your sanctuary.</p>
+            <h2 className="cart-page-title">Your Shopping Cart</h2>
+            <p className="cart-page-subtitle">
+              Total Plants in Cart: <strong>{totalItems}</strong>
+            </p>
           </div>
           <Link to="/products" className="back-link">
             <ChevronLeft size={14} />
-            Continue Browsing
+            Continue Shopping
           </Link>
+        </div>
+
+        {/* Total Cart Amount — prominently displayed */}
+        <div className="cart-total-amount-banner">
+          <span>Total Cart Amount:</span>
+          <strong>₹{totalCost}</strong>
         </div>
 
         {cartItems.length === 0 ? (
           <div className="cart-empty">
             <Leaf size={48} className="cart-empty-icon" />
-            <p className="cart-empty-text">Your greenhouse is waiting for its first resident.</p>
+            <p className="cart-empty-text">Your cart is empty.</p>
             <Link to="/products" className="back-link" style={{ marginTop: '1.5rem' }}>
               <ChevronLeft size={14} />
-              Browse Catalog
+              Continue Shopping
             </Link>
           </div>
         ) : (
@@ -50,13 +61,9 @@ function CartItem() {
 
             {/* Items column */}
             <div className="cart-items-col">
-              {/* Summary strip */}
-              <div className="cart-summary-strip">
-                <span>{totalItems} {totalItems === 1 ? 'plant' : 'plants'} in your collection</span>
-              </div>
-
               {cartItems.map((item) => (
                 <div key={item.id} className="cart-item-row">
+                  {/* Thumbnail */}
                   <div className="cart-item-thumb">
                     <img
                       src={item.thumbnail}
@@ -64,33 +71,49 @@ function CartItem() {
                       onError={(e) => { e.target.src = FALLBACK; }}
                     />
                   </div>
+
+                  {/* Info */}
                   <div className="cart-item-info">
                     <div className="cart-item-top">
                       <div>
                         <h4 className="cart-item-name">{item.name}</h4>
-                        <p className="cart-item-species">{item.species}</p>
-                        <p className="cart-item-unit">Unit price: <strong>₹{item.price}</strong></p>
+                        <p className="cart-item-unit">Unit Price: <strong>₹{item.price}</strong></p>
+                        <p className="cart-item-unit">
+                          Total: <strong>₹{item.price * item.quantity}</strong>
+                        </p>
                       </div>
+                      {/* Delete button */}
                       <button
                         onClick={() => dispatch(removeItem(item.id))}
                         className="delete-btn"
-                        aria-label={`Remove ${item.name}`}
+                        aria-label={`Delete ${item.name}`}
                       >
                         <Trash2 size={16} />
+                        <span>Delete</span>
                       </button>
                     </div>
+
+                    {/* Quantity controls */}
                     <div className="cart-item-bottom">
                       <div className="qty-controls">
-                        <button onClick={() => handleDecrease(item.id, item.quantity)} className="qty-btn" aria-label="Decrease">
+                        <button
+                          onClick={() => handleDecrease(item.id, item.quantity)}
+                          className="qty-btn"
+                          aria-label="Decrease quantity"
+                        >
                           <Minus size={13} />
                         </button>
                         <span className="qty-num">{item.quantity}</span>
-                        <button onClick={() => handleIncrease(item.id, item.quantity)} className="qty-btn" aria-label="Increase">
+                        <button
+                          onClick={() => handleIncrease(item.id, item.quantity)}
+                          className="qty-btn"
+                          aria-label="Increase quantity"
+                        >
                           <Plus size={13} />
                         </button>
                       </div>
                       <p className="cart-item-subtotal">
-                        ₹{item.price * item.quantity}
+                        Subtotal: <strong>₹{item.price * item.quantity}</strong>
                       </p>
                     </div>
                   </div>
@@ -100,7 +123,7 @@ function CartItem() {
 
             {/* Order summary sidebar */}
             <div className="cart-sidebar">
-              <h4 className="sidebar-title">Acquisition Summary</h4>
+              <h4 className="sidebar-title">Order Summary</h4>
               <div className="sidebar-lines">
                 <div className="sidebar-line">
                   <span>Total Plants</span>
@@ -115,13 +138,17 @@ function CartItem() {
                   <span>Free</span>
                 </div>
                 <div className="sidebar-total">
-                  <span>Total</span>
+                  <span>Total Amount</span>
                   <span>₹{totalCost}</span>
                 </div>
               </div>
-              <button onClick={() => setShowModal(true)} className="checkout-btn">
+
+              {/* Checkout button — shows alert "Coming Soon" */}
+              <button onClick={handleCheckout} className="checkout-btn">
                 Checkout
               </button>
+
+              {/* Continue Shopping button */}
               <Link to="/products" className="continue-btn">
                 <ChevronLeft size={14} />
                 Continue Shopping
@@ -130,26 +157,6 @@ function CartItem() {
           </div>
         )}
       </div>
-
-      {/* Checkout modal */}
-      {showModal && (
-        <div className="modal-backdrop" onClick={() => setShowModal(false)}>
-          <div className="modal-box" onClick={(e) => e.stopPropagation()}>
-            <div className="modal-accent-bar" />
-            <div className="modal-icon-wrap">
-              <Info size={28} color="#FAF9F6" />
-            </div>
-            <h3 className="modal-title">Coming Soon</h3>
-            <p className="modal-text">
-              Our gardeners are finalizing the logistics for secure botanical transportation.
-              Check back shortly.
-            </p>
-            <button onClick={() => setShowModal(false)} className="modal-close-btn">
-              Back to Greenhouse
-            </button>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
