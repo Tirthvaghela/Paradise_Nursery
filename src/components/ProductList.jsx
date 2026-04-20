@@ -67,9 +67,9 @@ function PlantCard({ plant }) {
           onClick={() => dispatch(addItem(plant))}
           disabled={isInCart}
           className={`acquire-btn ${isInCart ? 'acquired' : ''}`}
-          aria-label={isInCart ? `${plant.name} in cart` : `Add ${plant.name} to cart`}
+          aria-label={isInCart ? `${plant.name} added to cart` : `Add ${plant.name} to cart`}
         >
-          {isInCart ? 'In Collection' : 'Acquire Specimen'}
+          {isInCart ? '✓ Added to Cart' : 'Add to Cart'}
         </button>
       </div>
     </div>

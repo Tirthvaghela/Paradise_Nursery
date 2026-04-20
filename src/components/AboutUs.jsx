@@ -2,10 +2,19 @@ import React from 'react';
 
 function AboutUs() {
   return (
-    <section>
-      <p style={{ fontFamily: 'Georgia, serif', fontStyle: 'italic', fontSize: '1.1rem', lineHeight: 1.8, color: 'rgba(20,36,27,0.7)', maxWidth: '420px' }}>
-        &ldquo;Every leaf tells a story of serenity. We curate rare houseplants for the modern
-        sanctuary, bridging the gap between urban living and the soul of nature.&rdquo;
+    <section className="about-us">
+      <p>
+        Welcome to <strong>Paradise Nursery</strong> — your ultimate destination for beautiful,
+        healthy houseplants. Founded in 2023 with a passion for greenery, we believe every home
+        deserves a touch of nature. Our curated collection spans air-purifying champions,
+        low-maintenance companions, and wonderfully fragrant varieties, so there is a perfect
+        plant for every lifestyle and every space.
+      </p>
+      <p>
+        We source our plants from trusted, sustainable growers and ensure each one arrives at
+        your door in peak condition. Whether you are a seasoned plant parent or just starting
+        your green journey, Paradise Nursery is here to help you find the right plant and give
+        it the care it deserves. Make your space a sanctuary today.
       </p>
     </section>
   );
